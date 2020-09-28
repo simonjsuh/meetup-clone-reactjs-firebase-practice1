@@ -6,10 +6,6 @@ import * as firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 
-// Firebase login UI
-// var firebaseui = require('firebaseui');
-import * as firebaseui from 'firebaseui';
-
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 var firebaseConfig = {
@@ -22,20 +18,9 @@ var firebaseConfig = {
   appId: "1:545021533717:web:85906578f5a4fcffcfb81c",
   measurementId: "G-G22780K8Z6"
 };
-// Initialize Firebase
-let firebaseDB = firebase.initializeApp(firebaseConfig);
-// let firebaseAuth = firebase.auth();
-// Initialize the FirebaseUI Widget using Firebase.
-let firebaseUI = new firebaseui.auth.AuthUI(firebase.auth());
-// firebase.analytics();
-let firebaseGoogleProvider = new firebase.auth.GoogleAuthProvider();
-let firebaseFacebookProvider = new firebase.auth.FacebookAuthProvider();
 
-// export default firebaseDB;
-export {
-  firebaseDB,
-  // firebaseAuth,
-  // firebaseAnalytics,
-  firebaseUI,
-  // firebaseGoogleProvider,
-}
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+export default firebase;
+

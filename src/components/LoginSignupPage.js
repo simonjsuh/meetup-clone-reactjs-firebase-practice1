@@ -1,16 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // firebase, firebaseUI, css for firebaseUI
 import '../../node_modules/firebaseui/dist/firebaseui.css';
 import firebase from '../firebase';
 import * as firebaseui from 'firebaseui'
 
+
 // Initialize the FirebaseUI Widget using Firebase.
 let firebaseUI = new firebaseui.auth.AuthUI(firebase.auth());
 
 let firebaseUIConfig = {
   signInFlow: 'redirect',
-  signInSuccessUrl: 'http://localhost:3000',
+  signInSuccessUrl: 'http://localhost:3000/login-signup',
   signInOptions: [
     // List of OAuth providers supported.
     firebase.auth.EmailAuthProvider.PROVIDER_ID,
@@ -20,9 +21,13 @@ let firebaseUIConfig = {
   // Other config options...
 }
 
-firebaseUI.start('#firebaseui-auth-container', firebaseUIConfig);
+// firebaseUI.start('#firebaseui-auth-container', firebaseUIConfig);
 
-export default function LoginSignupPage() {
+export default function LoginSignupPage() {  
+  useEffect(() => {
+    firebaseUI.start('#firebaseui-auth-container', firebaseUIConfig);
+  }, []);
+
   const [signedInUser, setSignedInUser] = useState('Guest');
 
   firebase.auth().onAuthStateChanged(user => {
@@ -51,7 +56,6 @@ export default function LoginSignupPage() {
 
   return (
     <div id='loginSignupPage'>
-      <h1>Login Signup Page</h1>
       <div id="welcomeMsg">
         <h1>Welcome {signedInUser}</h1>
       </div>

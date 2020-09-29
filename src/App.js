@@ -1,27 +1,30 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
-
-// component imports
-import Navbar from './components/Navbar';
-import LoginSignupPage from './components/LoginSignupPage';
 
 // React Router imports
 import {
-  BrowserRouter as Router,
   Switch,
   Route,
-  Link,
-  useRouteMatch,
-  useParams
 } from "react-router-dom";
+
+// component imports
+import Navbar from './components/Navbar';
+import Home from './components/Home';
+import LoginSignupPage from './components/LoginSignupPage';
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   return (
+    <BrowserRouter>
     <div className="App">
       <Navbar />
+      <Switch>
+        <Route path='/' exact component={Home} />
+        <Route path='/login-signup' component={LoginSignupPage} />
+      </Switch>
       {/* <LoginSignupPage /> */}
-      <h2>Upcoming Meetups Near You:</h2>
     </div>
+    </BrowserRouter>
   );
 }
 

@@ -2,6 +2,7 @@ import { UPDATE_USER } from '../constants/action-types';
 
 const initialState = {
   loggedInUser: 'Guest',
+  userProfilePhotoURL: '',
 };
 
 function loggedInUserReducer(state = initialState, action) {
@@ -10,7 +11,8 @@ function loggedInUserReducer(state = initialState, action) {
 
     return Object.assign({}, state, {
       // loggedInUser: state.loggedInUser.concat(action.payload.loggedInUser)
-      loggedInUser: action.payload.loggedInUser
+      loggedInUser: action.payload.loggedInUser,
+      userProfilePhotoURL: action.payload.userProfilePhotoURL,
     });
   }
   

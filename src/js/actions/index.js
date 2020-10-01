@@ -1,11 +1,11 @@
 import { UPDATE_USER } from '../constants/action-types';
 
-export function updateUser(loggedInUserUsername) {
+export function updateUser(user) {
   return {
     type: UPDATE_USER,
     payload: {
-      // loggedInUser: 'Ultraman',
-      loggedInUser: loggedInUserUsername,
+      loggedInUser: user.loggedInUserUsername,
+      userProfilePhotoURL: user.userProfilePhotoURL,
     }
   }
 };

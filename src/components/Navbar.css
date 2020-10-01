@@ -6,3 +6,19 @@ span.profilePicture img {
 .userWelcome {
   margin-right: 10px;
 }
+
+
+
+#main-navbar .show > .dropdown-menu {
+  max-height: 900px;
+  visibility: visible;
+}
+
+#main-navbar .dropdown-menu {
+  display: block;
+  max-height: 0;
+  visibility: hidden;
+  transition: all 0.5s ease-in-out;
+  overflow: hidden;
+  right: 0;
+}

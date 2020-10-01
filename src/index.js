@@ -9,6 +9,8 @@ import index from './js/index';
 
 // Bootstrap import
 import 'bootstrap/dist/css/bootstrap.css';
+import 'jquery/dist/jquery.min.js';
+import 'bootstrap/dist/js/bootstrap.min.js';
 
 ReactDOM.render(
   <React.StrictMode>

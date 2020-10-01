@@ -17,15 +17,42 @@ function AuthenticationBtn () {
   return (
     <>
     <li className="nav-item">
-      <a href='javascript: void(0);' className='nav-link'>
-        <span className="profilePicture">
-          <img src={store.getState().userProfilePhotoURL} alt="" className="rounded-circle"/>
-        </span>
-        <span className="userWelcome">
-          Welcome {store.getState().loggedInUser}
-        </span>
-        <FontAwesomeIcon icon={faChevronDown} />
-      </a>
+      <div className="dropdown">
+        <a href='#' className='nav-link dropdown-toggle' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'>
+          <span className="nav-label">
+            <span className="profilePicture">
+              <img src={store.getState().userProfilePhotoURL} alt="" className="rounded-circle"/>
+            </span>
+            <span className="userWelcome">
+              Welcome, {store.getState().loggedInUser}!
+            </span>
+            {/* <FontAwesomeIcon icon={faChevronDown} /> */}
+          </span>
+        </a>
+        
+        {/* dropdown sub-menu */}
+        <div className="dropdown-menu" aria-labelledby='dropdownMenuLink'>
+          <a href="" className="dropdown-item">Profile</a>
+          <a href="" className="dropdown-item">Logout</a>
+        </div>
+      </div>
+
+      
+      {/* <div className="dropdown show">
+        <a href='javascript: void(0);' className='nav-link dropdown-toggle' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+          <span className="profilePicture">
+            <img src={store.getState().userProfilePhotoURL} alt="" className="rounded-circle"/>
+          </span>
+          <span className="userWelcome">
+            Welcome, {store.getState().loggedInUser}!
+          </span>
+        </a>
+        
+        <div className="dropdown-menu" aria-labelledby='dropdownMenuLink'>
+          <a href="" className="dropdown-item">Profile</a>
+          <a href="" className="dropdown-item">Logout</a>
+        </div>
+      </div> */}
     </li>
     </>
   )

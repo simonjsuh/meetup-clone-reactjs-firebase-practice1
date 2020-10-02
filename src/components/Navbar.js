@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import './Navbar.css';
 
+// import firebase
+import firebase from '../firebase';
+
 // redux js file import
 import store from '../js/store/index';
 
@@ -9,11 +12,17 @@ import {
   Link,
 } from "react-router-dom";
 
-// import Font Awesome icons
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-
 function AuthenticationBtn () {
+  function signOut() {
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+      console.log('signout has been successfully accomplished');
+    }).catch(function(error) {
+      // An error happened.
+      console.log('signout error has occured, please check');
+    });
+  }
+  
   return (
     <>
     <li className="nav-item">
@@ -33,26 +42,9 @@ function AuthenticationBtn () {
         {/* dropdown sub-menu */}
         <div className="dropdown-menu" aria-labelledby='dropdownMenuLink'>
           <a href="" className="dropdown-item">Profile</a>
-          <a href="" className="dropdown-item">Logout</a>
+          <a href="" className="dropdown-item" onClick={() => {signOut()}}>Logout</a>
         </div>
       </div>
-
-      
-      {/* <div className="dropdown show">
-        <a href='javascript: void(0);' className='nav-link dropdown-toggle' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-          <span className="profilePicture">
-            <img src={store.getState().userProfilePhotoURL} alt="" className="rounded-circle"/>
-          </span>
-          <span className="userWelcome">
-            Welcome, {store.getState().loggedInUser}!
-          </span>
-        </a>
-        
-        <div className="dropdown-menu" aria-labelledby='dropdownMenuLink'>
-          <a href="" className="dropdown-item">Profile</a>
-          <a href="" className="dropdown-item">Logout</a>
-        </div>
-      </div> */}
     </li>
     </>
   )
@@ -74,18 +66,22 @@ function LoginSignupBtn () {
 }
 
 function AuthenticationVSLoginSignupBtn () {
-  // code below is needed to make signed in username update
-  const [signedInUserNameCustom, setsignedInUserNameCustom] = useState(store.getState().loggedInUser);
+  const [loggedIn, setLoggedIn] = useState(false);
 
-  store.subscribe(() => {
-    setsignedInUserNameCustom(store.getState().loggedInUser);
-  })
-  // code above is needed to make signed in username update
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      setLoggedIn(true);
+    } else {
+      console.log('no detected of logged in user found');
+      setLoggedIn(false);
+    }
+  });
 
-  if (store.getState().loggedInUser === 'Guest') {
-    return <LoginSignupBtn />;
-  } else {
+  if (loggedIn) {
     return <AuthenticationBtn />;
+  } else {
+    console.log('returned login button');
+    return <LoginSignupBtn />;
   }
 }
 

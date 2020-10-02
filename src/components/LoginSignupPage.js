@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 
 // redux js file import
@@ -11,12 +11,16 @@ import firebase from '../firebase';
 import * as firebaseui from 'firebaseui'
 
 
+// set login persistence so users can close and reopen browser and still be logged in
+firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+.then(() => {
+  // console.log('login persisted');
+});
+
 // Initialize the FirebaseUI Widget using Firebase.
 let firebaseUI = new firebaseui.auth.AuthUI(firebase.auth());
 
 export default function LoginSignupPage() {  
-  const [loggedInUser, setLoggedInUser] = useState(store.getState().loggedInUser);
-
   let history = useHistory();
   
   useEffect(() => {
@@ -41,11 +45,12 @@ export default function LoginSignupPage() {
                 loggedInUserUsername: user.displayName, 
                 userProfilePhotoURL: user.photoURL
               }) );
-              setLoggedInUser(user.displayName);
             } else {
               // No user is signed in.
             }
           });
+
+          // generate session code and session expiration time
         }
       }
     }
@@ -55,19 +60,30 @@ export default function LoginSignupPage() {
 
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
-      setLoggedInUser(store.getState().loggedInUser);
-
-      if (loggedInUser !== 'Guest') {
-        history.push('/');
-      }
-    } else {      
-      // update Redux store with new username
-      store.dispatch( updateUser('Guest') );
+      console.log('user is logged in');
       
-      setLoggedInUser(store.getState().loggedInUser);
+      // update Redux store with new username
+      store.dispatch( updateUser({
+        loggedInUserUsername: user.displayName, 
+        userProfilePhotoURL: user.photoURL
+      }) );
 
-      document.getElementById('firebaseui-auth-container').style.display= 'block';
-      document.getElementById('signOutBtn').style.display= 'none';
+      // if (loggedInUser !== 'Guest') {
+      //   history.push('/');
+      // }
+
+      history.push('/');
+    } else {      
+      console.log('user is not logged in');
+
+      // update Redux store with new username
+      store.dispatch( updateUser({
+        loggedInUserUsername: '', 
+        userProfilePhotoURL: ','
+      }) );
+
+      // document.getElementById('firebaseui-auth-container').style.display= 'block';
+      // document.getElementById('signOutBtn').style.display= 'none';
     }
   });
 

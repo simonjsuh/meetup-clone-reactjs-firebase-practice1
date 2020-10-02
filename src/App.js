@@ -1,6 +1,13 @@
 import React from 'react';
 import './App.css';
 
+// import firebase
+import firebase from './firebase';
+
+// redux js file import
+import store from './js/store/index';
+import { updateUser } from './js/actions/index';
+
 // React Router imports
 import {
   Switch,
@@ -14,6 +21,20 @@ import LoginSignupPage from './components/LoginSignupPage';
 import { BrowserRouter } from 'react-router-dom';
 
 function App() {
+  firebase.auth().onAuthStateChanged(user => {
+    if (user) {
+      console.log('logged in user has been detected.');
+      console.log(user.displayName);
+
+      store.dispatch( updateUser({ 
+        loggedInUserUsername: user.displayName, 
+        userProfilePhotoURL: user.photoURL
+      }) );
+    } else {
+      console.log('no detected of logged in user found');
+    }
+  });
+
   return (
     <BrowserRouter>
     <div className="App">
@@ -22,7 +43,6 @@ function App() {
         <Route path='/' exact component={Home} />
         <Route path='/login-signup' component={LoginSignupPage} />
       </Switch>
-      {/* <LoginSignupPage /> */}
     </div>
     </BrowserRouter>
   );

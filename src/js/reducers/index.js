@@ -1,7 +1,7 @@
 import { UPDATE_USER } from '../constants/action-types';
 
 const initialState = {
-  loggedInUser: 'Guest',
+  loggedInUser: '',
   userProfilePhotoURL: '',
 };
 

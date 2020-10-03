@@ -14,12 +14,14 @@ import {
 
 function AuthenticationBtn () {
   const [userProfileImage, setUserProfileImage] = useState(store.getState().userProfilePhotoURL);
+  const [userUsername, setUserUsername] = useState(store.getState().loggedInUser);
 
   store.subscribe(() => {
     // setLoggedInUser(store.getState().loggedInUser);
     // setLoggedInUserProfilePicURL(store.getState().userProfilePhotoURL);
 
     setUserProfileImage(store.getState().userProfilePhotoURL);
+    setUserUsername(store.getState().loggedInUser);
   })
 
   function signOut() {
@@ -44,7 +46,7 @@ function AuthenticationBtn () {
                 <img src={userProfileImage} alt="" className="rounded-circle"/>
               </span>
               <span className="userWelcome">
-                Welcome, {store.getState().loggedInUser}!
+                Welcome, {userUsername}!
               </span>
               {/* <FontAwesomeIcon icon={faChevronDown} /> */}
             </span>

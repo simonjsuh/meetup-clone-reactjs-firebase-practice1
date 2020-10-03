@@ -4,8 +4,8 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-// // redux js file import
-// import index from './js/index';
+// redux js file import
+import index from './js/index';
 
 // Bootstrap import
 import 'bootstrap/dist/css/bootstrap.css';

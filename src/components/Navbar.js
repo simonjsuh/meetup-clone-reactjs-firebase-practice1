@@ -13,10 +13,21 @@ import {
 } from "react-router-dom";
 
 function AuthenticationBtn () {
+  const [userProfileImage, setUserProfileImage] = useState(store.getState().userProfilePhotoURL);
+
+  store.subscribe(() => {
+    // setLoggedInUser(store.getState().loggedInUser);
+    // setLoggedInUserProfilePicURL(store.getState().userProfilePhotoURL);
+
+    setUserProfileImage(store.getState().userProfilePhotoURL);
+  })
+
   function signOut() {
     firebase.auth().signOut().then(function() {
       // Sign-out successful.
       console.log('signout has been successfully accomplished');
+
+      window.location = '/';
     }).catch(function(error) {
       // An error happened.
       console.log('signout error has occured, please check');
@@ -24,29 +35,29 @@ function AuthenticationBtn () {
   }
   
   return (
-    <>
-    <li className="nav-item">
-      <div className="dropdown">
-        <a href='#' className='nav-link dropdown-toggle' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'>
-          <span className="nav-label">
-            <span className="profilePicture">
-              <img src={store.getState().userProfilePhotoURL} alt="" className="rounded-circle"/>
+    <div id='loggedInProfileCornerArea'>
+      <li className="nav-item">
+        <div className="dropdown">
+          <a href='#' className='nav-link dropdown-toggle' role='button' id='dropdownMenuLink' data-toggle='dropdown' aria-haspopup='true' aria-expanded='true'>
+            <span className="nav-label">
+              <span className="profilePicture">
+                <img src={userProfileImage} alt="" className="rounded-circle"/>
+              </span>
+              <span className="userWelcome">
+                Welcome, {store.getState().loggedInUser}!
+              </span>
+              {/* <FontAwesomeIcon icon={faChevronDown} /> */}
             </span>
-            <span className="userWelcome">
-              Welcome, {store.getState().loggedInUser}!
-            </span>
-            {/* <FontAwesomeIcon icon={faChevronDown} /> */}
-          </span>
-        </a>
-        
-        {/* dropdown sub-menu */}
-        <div className="dropdown-menu" aria-labelledby='dropdownMenuLink'>
-          <a href="" className="dropdown-item">Profile</a>
-          <a href="" className="dropdown-item" onClick={() => {signOut()}}>Logout</a>
+          </a>
+          
+          {/* dropdown sub-menu */}
+          <div className="dropdown-menu" aria-labelledby='dropdownMenuLink'>
+            <a href="/userprofile" className="dropdown-item">Profile</a>
+            <a href="" className="dropdown-item" onClick={() => {signOut()}}>Logout</a>
+          </div>
         </div>
-      </div>
-    </li>
-    </>
+      </li>
+    </div>
   )
 }
 
@@ -80,7 +91,7 @@ function AuthenticationVSLoginSignupBtn () {
   if (loggedIn) {
     return <AuthenticationBtn />;
   } else {
-    console.log('returned login button');
+    // console.log('returned login button');
     return <LoginSignupBtn />;
   }
 }

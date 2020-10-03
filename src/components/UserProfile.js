@@ -35,11 +35,14 @@ export default function UserProfile() {
     });
     store.dispatch( updateUser({ 
       loggedInUserUsername: user.displayName, 
-      userProfilePhotoURL: newProfilePicURL
+      userProfilePhotoURL: newProfilePicURL,
     }) );
 
     // close modal after update button is clicked
-    $('.modal').modal('hide')
+    $('.modal').modal('hide');
+
+    // clear form value for new profile picture URL
+    setNewProfilePicURL('');
   }
 
   function updateNewUsernameState(e) {
@@ -57,7 +60,10 @@ export default function UserProfile() {
     }) );
     
     // close modal after update button is clicked
-    $('.modal').modal('hide')
+    $('.modal').modal('hide');
+
+    // clear form value for new username
+    setNewUsername('');
   }
 
   return (
@@ -89,7 +95,7 @@ export default function UserProfile() {
                 <div className="form-group row">
                   <label htmlFor="newProfilePictureURL" className="col-sm-4 col-form-label">New Picture URL</label>
                   <div className="col-sm-8">
-                    <input type="text" className="form-control" onChange={(e) => {updateNewProfilePictureURLState(e);}} id="newProfilePictureURL" placeholder="Image URL" />
+                    <input type="text" className="form-control" onChange={(e) => {updateNewProfilePictureURLState(e);}} id="newProfilePictureURL" placeholder="Image URL" value={newProfilePicURL} />
                   </div>
                 </div>
               </form>
@@ -129,7 +135,7 @@ export default function UserProfile() {
               <div className="form-group row">
                 <label htmlFor="newProfilePictureURL" className="col-sm-4 col-form-label">New Username</label>
                 <div className="col-sm-8">
-                  <input type="text" className="form-control" onChange={(e) => {updateNewUsernameState(e);}} id="newProfilePictureURL" placeholder="Enter New Username" />
+                  <input type="text" className="form-control" onChange={(e) => {updateNewUsernameState(e);}} id="newProfilePictureURL" placeholder="Enter New Username" value={newUsername} />
                 </div>
               </div>
             </form>

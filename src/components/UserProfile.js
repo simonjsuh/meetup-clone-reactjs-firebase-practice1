@@ -16,6 +16,7 @@ export default function UserProfile() {
   const [loggedInUserProfilePicURL, setLoggedInUserProfilePicURL] = useState('');
   const [newProfilePicURL, setNewProfilePicURL] = useState('');
   const [newUsername, setNewUsername] = useState('');
+  const [userEmail, setUserEmail] = useState('');
 
   store.subscribe(() => {
     setLoggedInUser(store.getState().loggedInUser);
@@ -23,6 +24,10 @@ export default function UserProfile() {
   })
 
   let user = firebase.auth().currentUser;
+
+  firebase.auth().onAuthStateChanged(function(user) {
+    setUserEmail(user.email);
+  });
 
   function updateNewProfilePictureURLState(e) {
     setNewProfilePicURL(e.target.value);
@@ -148,6 +153,11 @@ export default function UserProfile() {
         </div>
       </div>
       {/* Modal for changing username - code above */}
+
+      <br />
+      <div id="userEmail" className='mt-3'>
+        <p><strong>Email:</strong> {userEmail}</p>
+      </div>
     </div>
   )
 }

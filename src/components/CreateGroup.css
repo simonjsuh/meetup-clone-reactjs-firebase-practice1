@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+#createGroupForm {
+  display: flex;
+  height: 100%;
+}
+#createGroupForm .left,
+#createGroupForm .right {
+  height: 100%;
+}
+#createGroupForm .left {
+  width: 60%;
+}
+#createGroupForm .right {
+  width: 40%;
+}
+#createGroupForm h1 {
+  font-family: poppins;
+  font-weight: 700;
+}
+
+/* hide Google Maps in smaller screens */
+@media only screen and (max-width: 750px) {
+  #createGroupForm .left {
+    display: none;
+  }
+  #createGroupForm .right {
+    width: 100%;
+  }
+}

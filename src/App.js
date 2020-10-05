@@ -19,14 +19,14 @@ import Navbar from './components/Navbar';
 import Home from './components/Home';
 import UserProfile from './components/UserProfile';
 import LoginSignupPage from './components/LoginSignupPage';
+import CreateGroup from './components/CreateGroup';
+
+// react router
 import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
-      // console.log('logged in user has been detected.');
-      // console.log(user.displayName);
-
       store.dispatch( updateUser({ 
         loggedInUserUsername: user.displayName, 
         userProfilePhotoURL: user.photoURL
@@ -44,6 +44,7 @@ function App() {
         <Route path='/' exact component={Home} />
         <Route path='/login-signup' component={LoginSignupPage} />
         <Route path='/userprofile' component={UserProfile} />
+        <Route path='/creategroup' component={CreateGroup} />
       </Switch>
     </div>
     </BrowserRouter>

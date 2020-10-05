@@ -72,8 +72,8 @@ export default function UserProfile() {
   }
 
   return (
-    <div id='userProfile'>
-      <div id="profilePicture" className='text-center'>
+    <div id='userProfile' className='text-center'>
+      <div id="profilePicture">
         <img src={loggedInUserProfilePicURL} className="rounded-circle mt-4 mb-2" alt=""/>
         <br/>
         <button type='button' className='btn btn-link' data-toggle='modal' data-target='#exampleModal'>Change profile picture</button>

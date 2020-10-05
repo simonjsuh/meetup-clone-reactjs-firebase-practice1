@@ -55,6 +55,7 @@ function AuthenticationBtn () {
           {/* dropdown sub-menu */}
           <div className="dropdown-menu" aria-labelledby='dropdownMenuLink'>
             <a href="/userprofile" className="dropdown-item">Profile</a>
+            <a href="/creategroup" className="dropdown-item">Create a group</a>
             <a href="" className="dropdown-item" onClick={() => {signOut()}}>Logout</a>
           </div>
         </div>

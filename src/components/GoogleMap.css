@@ -1,0 +1,4 @@
+#googleMap {
+  position: relative;
+  height: calc(100vh - 62px);
+}

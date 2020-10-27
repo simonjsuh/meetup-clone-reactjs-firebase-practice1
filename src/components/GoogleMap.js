@@ -1,35 +1,47 @@
-import React, { Component } from 'react';
-import GoogleMapReact from 'google-map-react';
- 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
- 
-class SimpleMap extends Component {
-  static defaultProps = {
-    center: {
-      lat: 59.95,
-      lng: 30.33
-    },
-    zoom: 11
-  };
- 
-  render() {
-    return (
-      // Important! Always set the container height explicitly
-      <div style={{ height: '100%', width: '100%' }}>
-        <GoogleMapReact
-          bootstrapURLKeys={{ key: 'AIzaSyBLVHqBpK4pTUHkxRLctTj6a3nHrt1d-uI' }}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
-        >
-          <AnyReactComponent
-            lat={59.955413}
-            lng={30.337844}
-            text="My Marker"
-          />
-        </GoogleMapReact>
-      </div>
-    );
+import React, { useState } from 'react';
+import {Map, Marker, GoogleApiWrapper} from 'google-maps-react';
+import './GoogleMap.css';
+
+// redux js file import
+import store from '../js/store/index';
+
+function MapContainer(props) {
+  const [mapCenter, setMapCenter] = useState({
+    latitude: 49.2827291,
+    longitude: -123.1207375
+  });
+
+  store.subscribe(() => {
+    setMapCenter(store.getState().googleMapCoordinates);
+  })
+
+  return (
+    <div id="googleMap">
+      <Map 
+        google={props.google}
+        initialCenter={{
+          lat: mapCenter.latitude,
+          lng: mapCenter.longitude
+        }}
+        center={{
+          lat: mapCenter.latitude,
+          lng: mapCenter.longitude
+        }}
+      >
+        <Marker 
+          position={{
+            lat: mapCenter.latitude,
+            lng: mapCenter.longitude
+          }} 
+        />
+      </Map>
+    </div>
+  )
+} 
+
+export default GoogleApiWrapper(
+  (props) => ({
+    apiKey: ('AIzaSyBLVHqBpK4pTUHkxRLctTj6a3nHrt1d-uI'),
+    language: props.language,
   }
-}
- 
-export default SimpleMap;
+))(MapContainer)

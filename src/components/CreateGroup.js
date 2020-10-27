@@ -2,32 +2,15 @@ import React, { useState, useEffect } from 'react';
 import './CreateGroup.css';
 
 // import Google Maps component
-import GoogleMaps from './GoogleMaps';
-
-// import Google Maps component
 import GoogleMap from './GoogleMap';
 
-// // import Google Maps API
-// import {GoogleApiWrapper} from 'google-maps-react';
-
-// export default GoogleApiWrapper({
-//   apiKey: 'AIzaSyBLVHqBpK4pTUHkxRLctTj6a3nHrt1d-uI',
-// })(CreateGroup);
+import GoogleMapPlacesAutoCompleteInputField from './GoogleMapPlacesAutoCompleteInputField';
 
 export default function CreateGroup() {
-  // run google maps autocomplete address from database function
-  // https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform
   return (
     <div id='createGroupForm'>
       <div className="left">
         <GoogleMap />
-
-        {/* <iframe
-          width="100%"
-          height="100%"
-          frameborder="0" style={{border:0}}
-          src="https://www.google.com/maps/embed/v1/search?key=AIzaSyBLVHqBpK4pTUHkxRLctTj6a3nHrt1d-uI&q=Vancouver" allowfullscreen>
-        </iframe> */}
       </div>
       <div className="right py-5 px-3">
         <h1 className='text-center'>Create a Group</h1>
@@ -38,7 +21,8 @@ export default function CreateGroup() {
           </div>
           <div className="form-group">
             <label htmlFor="groupAddress">Address</label>
-            <input type="text" id='groupAddress' className="form-control" placeholder='Enter group address' />
+            {/* <input type="text" id='groupAddress' className="form-control" placeholder='Enter group address' /> */}
+            <GoogleMapPlacesAutoCompleteInputField />
           </div>
           <div className="form-group">
             <label htmlFor="groupDescription">Group description</label>

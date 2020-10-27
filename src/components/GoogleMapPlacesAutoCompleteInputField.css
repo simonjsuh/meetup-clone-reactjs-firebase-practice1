@@ -1,0 +1,9 @@
+#googleMapPlacesAutocompleteInputContainer {
+  position: relative;
+}
+.autocomplete-dropdown-container {
+  position: absolute;
+  top: 42px;
+  left: 0;
+  width: 100%;
+}

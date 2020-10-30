@@ -46,6 +46,9 @@
   padding: 5px;
   font-size: 16px;
 }
+.tagContainer .closeSymbol {
+  cursor: pointer;
+}
 
 /* hide Google Maps in smaller screens */
 @media only screen and (max-width: 750px) {

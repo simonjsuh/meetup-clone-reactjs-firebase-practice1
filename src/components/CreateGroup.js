@@ -26,11 +26,27 @@ export default function CreateGroup() {
   }
 
   function addTag(e) {
-    if (e.keyCode == 13) {
-      console.log('label is: ' + e.target.value);
+    if (e.keyCode == 13 || e.keyCode == 188) {
+      // console.log('label is: ' + e.target.value);
       setTags([...tags, { label: e.target.value }]);
       e.target.value = '';
     }
+  }
+
+  function removeTag(tagToBeRemoved) {
+    let tagsArray = [...tags];
+
+    let indexFound = -1;
+    for (var i=0; i < tags.length; i++) {
+      if (tags[i].label == tagToBeRemoved) {
+        indexFound = i;
+        break;
+      }
+    }
+
+    tagsArray.splice(indexFound, 1);
+
+    setTags(tagsArray);
   }
   
   useEffect(() => {
@@ -64,21 +80,26 @@ export default function CreateGroup() {
             {/* tag creation area of form */}
             <div ref={formTagContainer} className="tagContainer">
               {tags.map(tag => {
-                return <div className='tag'>{tag.label}<CloseIcon /></div>
+                return (
+                  <div className='tag' data-tag-label={tag.label}>
+                    {tag.label}
+                    <span className='closeSymbol'>
+                      <CloseIcon 
+                        onClick={(e) => {
+                          let labelToBeRemoved = e.currentTarget.parentNode.getAttribute('data-tag-label');
+                          removeTag(labelToBeRemoved);
+                          }
+                        } 
+                      />
+                    </span>
+                  </div>
+                )
               })}
-              {
-                (tags.length == 0) ?
-                  <input
-                    onKeyUp={addTag} 
-                    placeholder='Type your tags separated by enter key'
-                    type='text'
-                  />
-                  :
-                  <input
-                    onKeyUp={addTag} 
-                    type='text'
-                  />
-              }
+              <input  
+                onKeyUp={addTag} 
+                placeholder={tags.length == 0 ? 'Type your tags separated by enter key' : null}
+                type="text"
+              />
             </div>
           </div>
           <button className="btn btn-primary form-control">Create</button>

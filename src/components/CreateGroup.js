@@ -27,7 +27,6 @@ export default function CreateGroup() {
 
   function addTag(e) {
     if (e.keyCode == 13 || e.keyCode == 188) {
-      // console.log('label is: ' + e.target.value);
       setTags([...tags, { label: e.target.value }]);
       e.target.value = '';
     }
